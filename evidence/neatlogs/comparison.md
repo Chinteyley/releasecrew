@@ -14,7 +14,7 @@ Dashboard links stay blank until the owner sets `NEATLOGS_API_KEY` and re-runs. 
 | Spans | 21 | 16 | −5 |
 | Error spans | 1 | 0 | −1 |
 | Retry / extra-attempt spans | 3 | 0 | −3 |
-| Total tokens (heuristic estimate) | 819 | 600 | −219 |
+| Total tokens (heuristic estimate) | 819 | 509 | −310 |
 | Sum of span durations | 7.6s | 5.9s | −1.7s |
 | Writer attempts | 2 | 1 | −1 |
 | Verifier rejected claims | 1 (quantum teleportation) | 0 | −1 |

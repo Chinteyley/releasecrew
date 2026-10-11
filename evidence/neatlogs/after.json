@@ -5,9 +5,9 @@
   "retries": 0,
   "durationMs": 5904,
   "usage": {
-    "promptTokens": 400,
-    "completionTokens": 200,
-    "totalTokens": 600
+    "promptTokens": 340,
+    "completionTokens": 169,
+    "totalTokens": 509
   },
   "writerAttempts": 1,
   "rejectedClaims": 0,
