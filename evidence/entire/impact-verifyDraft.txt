@@ -1,0 +1,31 @@
+Index: cache-miss (415ms) | Query: 0ms | Total: 415ms
+Completeness: no parse failures in TypeScript (23 files parsed); 2 elsewhere (JSON 2) cannot affect this answer — see --format json.
+Impact: verifyDraft (src/agents/verifier.ts:12) def=12 span=12-36 [function]
+Blast radius: 3 callers (2 direct, 1 transitive), 5 callees, 6 type consumers, 5 data flows, 0 co-change files, 0 siblings.
+Callers (2 direct, 1 transitive; who breaks if behavior changes):
+- verifier.test.ts (src/agents/verifier.test.ts)
+- runCrew (src/coordinator.ts:21) [ASYNC_CALLS]
+- main (src/cli.ts:83) [ASYNC_CALLS, via runCrew]
+Callees (5; what it depends on):
+- collectClaims (src/agents/verifier.ts:38)
+- buildCorpus (src/agents/verifier.ts:48)
+- checkClaim (src/agents/verifier.ts:60)
+- withAgent (src/telemetry/neatlogs.ts:64)
+- withGuardrail (src/telemetry/neatlogs.ts:72)
+Type consumers (0 in, 6 out; USES_TYPE/PARAM_TYPE/RETURNS_TYPE):
+- -> ResearchBundle (src/types.ts:70) [PARAM_TYPE]
+- -> ResearchBundle (src/types.ts:70) [USES_TYPE]
+- -> Draft (src/types.ts:107) [PARAM_TYPE]
+- -> Draft (src/types.ts:107) [USES_TYPE]
+- -> VerificationResult (src/types.ts:124) [RETURNS_TYPE]
+- -> VerificationResult (src/types.ts:124) [USES_TYPE]
+Data flows (2 in, 3 out):
+- -> collectClaims (src/agents/verifier.ts:38)
+- -> buildCorpus (src/agents/verifier.ts:48)
+- -> checkClaim (src/agents/verifier.ts:60)
+- <- withAgent (src/telemetry/neatlogs.ts:64)
+- <- withGuardrail (src/telemetry/neatlogs.ts:72)
+Co-change coupling (0; files that historically change with src/agents/verifier.ts):
+- none
+Same-container siblings (0):
+- none

@@ -1,0 +1,5 @@
+● Enabled · branch slops/releasecrew-neathack-0708
+  Agents · Cursor
+  Automatic checkpoint pushing: disabled (push_sessions=false)
+  Checkpoints read from: origin
+Agents: run `entire agent-help` for machine-readable usage.
