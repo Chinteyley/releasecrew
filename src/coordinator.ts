@@ -9,13 +9,13 @@ import { writeKit } from "./kit/write.js";
 import { describeLlm } from "./llm/provider.js";
 import { isComplete, loadState, markComplete, newRunId, recordFailure, runDir, saveState } from "./state/store.js";
 import { currentUsage, startLocalTrace, summarizeTrace } from "./telemetry/recorder.js";
-import { flushTelemetry, initTelemetry, neatlog, withWorkflow } from "./telemetry/neatlogs.js";
+import { currentNeatlogsTraceId, flushTelemetry, initTelemetry, neatlog, withWorkflow } from "./telemetry/neatlogs.js";
 import type { ReleaseKitManifest, RunState } from "./types.js";
 
 export interface RunResult {
   state: RunState;
   manifest?: ReleaseKitManifest;
-  summary: ReturnType<typeof summarizeTrace>;
+  summary: ReturnType<typeof summarizeTrace> & { llm?: ReturnType<typeof describeLlm>; neatlogsTraceId?: string };
 }
 
 export async function runCrew(options: CliOptions): Promise<RunResult> {
@@ -52,6 +52,8 @@ export async function runCrew(options: CliOptions): Promise<RunResult> {
 
   try {
     const result = await withWorkflow("releasecrew.run", async () => {
+      const neatlogsTraceId = exported.exported ? currentNeatlogsTraceId() : undefined;
+      if (neatlogsTraceId) console.log(`[neatlogs] trace_id ${neatlogsTraceId}`);
       neatlog("Starting ReleaseCrew {repo} {tag} llm={llm} neatlogs={neatlogs}", {
         repo: goal.repo,
         tag: goal.tag,
@@ -155,7 +157,7 @@ export async function runCrew(options: CliOptions): Promise<RunResult> {
       markComplete(state, "assemble");
       state.usage = currentUsage();
       saveState(state);
-      return { state, manifest, summary: summarizeTrace() };
+      return { state, manifest, summary: { ...summarizeTrace(), llm, neatlogsTraceId } };
     });
     return result;
   } finally {

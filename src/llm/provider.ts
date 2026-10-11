@@ -25,7 +25,7 @@ export function describeLlm(): { provider: string; model: string; mode: "llm" | 
   }
   const keys = detectedModelKeys();
   if (envFlag("LITELLM_API_KEY")) {
-    return { provider: "litellm", model: envFlag("RELEASECREW_MODEL") ?? "openai/gpt-4o-mini", mode: "llm" };
+    return { provider: "litellm", model: envFlag("RELEASECREW_MODEL") ?? "claude-haiku", mode: "llm" };
   }
   if (envFlag("OPENAI_API_KEY")) {
     return { provider: "openai", model: envFlag("RELEASECREW_MODEL") ?? "gpt-4o-mini", mode: "llm" };
@@ -105,9 +105,10 @@ async function resolveModel(info: { provider: string; model: string }): Promise<
       const { createOpenAI } = await import("@ai-sdk/openai");
       const openai = createOpenAI({
         apiKey: envFlag("LITELLM_API_KEY"),
-        baseURL: envFlag("LITELLM_BASE_URL") ?? "https://api.openai.com/v1",
+        baseURL: envFlag("LITELLM_BASE_URL") ?? "https://litellm.vision.aivar.app/v1",
       });
-      return openai(info.model);
+      // LiteLLM proxies speak chat completions; avoid the Responses API default.
+      return openai.chat(info.model);
     }
     case "openai": {
       const { createOpenAI } = await import("@ai-sdk/openai");

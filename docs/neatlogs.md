@@ -12,7 +12,7 @@ ReleaseCrew instruments the crew with the official TypeScript SDK ([docs](https:
 | `GUARDRAIL` | claim grounding |
 | `LLM` | AI SDK `generateText` via `wrapAISDK` from `neatlogs/ai` |
 
-Retries are child spans named `*.attempt_N`.
+Retries are child spans named `*.attempt_N`. `neatlogs/ai` on AI SDK v7 needs the `@ai-sdk/otel` peer dependency (installed). Each run prints `[neatlogs] trace_id <id>` and stores it in `evidence/neatlogs/{before,after}.json`.
 
 ## Owner setup
 

@@ -19,6 +19,7 @@ interface NeatlogsApi {
     options: { name: string; kind?: string },
     fn: (span: { setAttribute: (key: string, value: string | number | boolean) => void }) => Promise<T> | T,
   ) => Promise<T>;
+  injectTraceContext?: (carrier: Record<string, string>) => boolean;
   log: (message: string, vars?: Record<string, unknown>) => void;
   flush: () => Promise<void>;
   shutdown: () => Promise<void>;
@@ -97,4 +98,16 @@ async function wrap<T>(
     );
     return instrumented();
   });
+}
+
+/** W3C trace id of the active neatlogs span, if the SDK exposes one. */
+export function currentNeatlogsTraceId(): string | undefined {
+  if (!sdk?.injectTraceContext) return undefined;
+  const carrier: Record<string, string> = {};
+  try {
+    if (!sdk.injectTraceContext(carrier)) return undefined;
+  } catch {
+    return undefined;
+  }
+  return carrier.traceparent?.split("-")[1];
 }
