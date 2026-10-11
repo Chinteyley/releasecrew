@@ -1,0 +1,37 @@
+{
+  "name": "releasecrew",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A crew of agents that ships a verified GitHub release kit — notes, launch thread, and trailer.",
+  "type": "module",
+  "bin": {
+    "releasecrew": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "tsx src/cli.ts",
+    "releasecrew": "tsx src/cli.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsx --test src/**/*.test.ts",
+    "doctor:neatlogs": "neatlogs doctor --local --json"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@ai-sdk/amazon-bedrock": "^5.0.113",
+    "@ai-sdk/anthropic": "^4.0.78",
+    "@ai-sdk/google": "^4.0.93",
+    "@ai-sdk/openai": "^4.0.91",
+    "ai": "^7.0.137",
+    "dotenv": "^18.0.7",
+    "neatlogs": "^1.1.28",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

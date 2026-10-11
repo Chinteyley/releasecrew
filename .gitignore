@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+.env.local
+.releasecrew/
+*.log
+.DS_Store
+coverage/
+.entire/settings.local.json
