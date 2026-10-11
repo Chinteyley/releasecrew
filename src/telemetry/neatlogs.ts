@@ -29,6 +29,9 @@ let enabled = false;
 
 export async function initTelemetry(workflowName: string): Promise<{ exported: boolean }> {
   try {
+    if (sdk) {
+      await sdk.flush().catch(() => undefined);
+    }
     sdk = (await import("neatlogs")) as unknown as NeatlogsApi;
     await sdk.init({
       apiKey: envFlag("NEATLOGS_API_KEY"),
