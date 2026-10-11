@@ -20,7 +20,11 @@ export interface RunResult {
 
 export async function runCrew(options: CliOptions): Promise<RunResult> {
   const goal = buildGoal(options);
-  const existing = options.resume ? loadState(options.resume) : undefined;
+  const existing = options.resume
+    ? loadState(options.resume)
+    : options.runId
+      ? loadState(options.runId)
+      : undefined;
   const runId = existing?.runId ?? options.runId ?? newRunId();
   const localTracePath = join(runDir(runId), "trace.jsonl");
   startLocalTrace(localTracePath);

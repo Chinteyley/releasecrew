@@ -58,6 +58,23 @@ test("accepts grounded claims", async () => {
   assert.equal(result.claims[0]?.status, "supported");
 });
 
+test("ignores kit attribution tweets", async () => {
+  const result = await verifyDraft(
+    bundle(),
+    {
+      ...draft(["Add cookie jar (#42)"]),
+      thread: {
+        tweets: [
+          "acme/widget v2.0.0 is out.",
+          "Notes, thread, and trailer were assembled by ReleaseCrew from v1.9.0...v2.0.0.",
+        ],
+      },
+    },
+    1,
+  );
+  assert.equal(result.passed, true);
+});
+
 test("rejects hallucinated features and asks the writer to retry", async () => {
   const result = await verifyDraft(
     bundle(),

@@ -42,7 +42,13 @@ function collectClaims(draft: Draft): string[] {
     ...draft.notes.sections.flatMap((section) => section.bullets),
   ];
   const fromThread = draft.thread.tweets.slice(1);
-  return [...fromNotes, ...fromThread].map((text) => text.trim()).filter((text) => text.length > 8);
+  return [...fromNotes, ...fromThread]
+    .map((text) => text.trim())
+    .filter((text) => text.length > 8 && !isAttribution(text));
+}
+
+function isAttribution(text: string): boolean {
+  return /releasecrew|assembled by this crew|storyboard rendered/i.test(text);
 }
 
 function buildCorpus(research: ResearchBundle): string {
