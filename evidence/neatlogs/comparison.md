@@ -1,22 +1,25 @@
 # Before / after neatlogs traces
 
-Two runs of the same goal (`honojs/hono@v4.13.12`).
+Two runs of the same goal: `honojs/hono@v4.13.12` (`v4.13.11...v4.13.12`).
 
-- **Before:** `--demo-failures` on. First GitHub call 429s, first draft invents a feature, first ffmpeg encoder is fake. The crew recovers.
-- **After:** same repo and tag, no injected faults.
+- **Before:** `--demo-failures`. First GitHub call 429s, first draft invents “quantum teleportation deploys”, first ffmpeg encoder is fake. The crew recovers and still writes a kit.
+- **After:** same repo and tag, no injected faults. Writer attempt 1 is already grounded.
 
-Fill the table from `before.json` / `after.json` after the example run. Dashboard links are blank until the owner sets `NEATLOGS_API_KEY`.
+Dashboard links stay blank until the owner sets `NEATLOGS_API_KEY` and re-runs. The local JSONL trees are the checkable record.
 
-| Metric | Before (sloppy) | After (clean) |
-| --- | --- | --- |
-| neatlogs dashboard | _pending API key_ | _pending API key_ |
-| Local trace | `before.trace.jsonl` | `after.trace.jsonl` |
-| Spans | _pending run_ | _pending run_ |
-| Error spans | _pending run_ | _pending run_ |
-| Retry / attempt spans | _pending run_ | _pending run_ |
-| Total tokens (heuristic estimate or LLM) | _pending run_ | _pending run_ |
-| Wall time (sum of span durations) | _pending run_ | _pending run_ |
-| Verifier rejected claims | ≥1 (quantum teleportation) | 0 |
-| Recovered failures | rate limit, bad draft, render | none injected |
+| Metric | Before (sloppy) | After (clean) | Delta |
+| --- | --- | --- | --- |
+| neatlogs dashboard | _pending `NEATLOGS_API_KEY`_ | _pending `NEATLOGS_API_KEY`_ | — |
+| Local trace | [`before.trace.jsonl`](./before.trace.jsonl) | [`after.trace.jsonl`](./after.trace.jsonl) | — |
+| Spans | 21 | 16 | −5 |
+| Error spans | 1 | 0 | −1 |
+| Retry / extra-attempt spans | 3 | 0 | −3 |
+| Total tokens (heuristic estimate) | 819 | 600 | −219 |
+| Sum of span durations | 7.6s | 5.9s | −1.7s |
+| Writer attempts | 2 | 1 | −1 |
+| Verifier rejected claims | 1 (quantum teleportation) | 0 | −1 |
+| Recovered failures | rate limit, bad draft, render | none injected | — |
 
-What changed in the code between the two philosophies: the verifier is a `GUARDRAIL` span. The before run proves it fires. The after run proves a grounded writer never trips it.
+What changed: the verifier is a `GUARDRAIL` span. Before proves it fires and the writer retries. After proves a grounded writer never trips it. GitHub and ffmpeg retries are child spans named `*.attempt_N`.
+
+Kits: [`examples/hono-v4.13.12/before`](../../examples/hono-v4.13.12/before) vs [`examples/hono-v4.13.12`](../../examples/hono-v4.13.12).

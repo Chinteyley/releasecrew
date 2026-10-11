@@ -16,10 +16,11 @@ export async function researchRelease(goal: Goal, demoFailures: boolean): Promis
         ? await github.compare(goal.owner, goal.name, previousTag, goal.tag)
         : { commits: [], files: [], additions: 0, deletions: 0, htmlUrl: "" };
 
-      const pulls = await withTool("github.searchPulls", async () => {
+      const searched = await withTool("github.searchPulls", async () => {
         if (!previousTag) return [];
         return github.searchPulls(goal.owner, goal.name, `${previousTag}..${goal.tag}`);
       }).catch(() => []);
+      const pulls = mergePulls(goal, searched, compare.commits);
 
       const changes = buildChanges(goal, compare.commits, pulls);
       const issues = pulls
@@ -77,6 +78,31 @@ async function inferPreviousTag(
   const index = releases.findIndex((item) => item.tag === currentTag);
   if (index >= 0) return releases[index + 1]?.tag;
   return releases.find((item) => item.tag !== currentTag)?.tag;
+}
+
+function mergePulls(
+  goal: Goal,
+  searched: Array<Record<string, unknown>>,
+  commits: Array<{ message: string }>,
+): Array<Record<string, unknown>> {
+  const byNumber = new Map<number, Record<string, unknown>>();
+  for (const pull of searched) {
+    const number = Number(pull.number);
+    if (number) byNumber.set(number, pull);
+  }
+  for (const commit of commits) {
+    for (const match of commit.message.matchAll(/#(\d+)/g)) {
+      const number = Number(match[1]);
+      if (!number || byNumber.has(number)) continue;
+      byNumber.set(number, {
+        number,
+        title: (commit.message.split("\n")[0] ?? "").replace(/\(#[0-9]+\)/g, "").trim(),
+        body: commit.message,
+        html_url: `https://github.com/${goal.repo}/pull/${number}`,
+      });
+    }
+  }
+  return [...byNumber.values()];
 }
 
 function buildChanges(

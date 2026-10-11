@@ -1,0 +1,444 @@
+{
+  "manifest": {
+    "runId": "hono-v4-13-12",
+    "repo": "honojs/hono",
+    "tag": "v4.13.12",
+    "notes": "notes.md",
+    "thread": "thread.txt",
+    "trailer": "trailer.mp4",
+    "evidence": "evidence.json",
+    "recoveredFailures": [],
+    "verification": {
+      "passed": true,
+      "supportedClaims": 14,
+      "rejectedClaims": 0
+    }
+  },
+  "plan": {
+    "goal": "Ship a verified changelog, X thread, and trailer for honojs/hono v4.13.12",
+    "steps": [
+      {
+        "id": "research",
+        "agent": "research",
+        "title": "Read the release range",
+        "detail": "Pull commits, compare v4.13.11...v4.13.12, merged PRs, and linked issues via the GitHub API."
+      },
+      {
+        "id": "write",
+        "agent": "write",
+        "title": "Draft the release story",
+        "detail": "Turn the structured change list into notes.md and a launch thread. Every claim must cite a SHA or PR."
+      },
+      {
+        "id": "verify",
+        "agent": "verify",
+        "title": "Ground every claim",
+        "detail": "Reject bullets that are not supported by the compare payload. Send the writer back if anything is invented."
+      },
+      {
+        "id": "media",
+        "agent": "media",
+        "title": "Render the trailer",
+        "detail": "Storyboard verified copy into slides and encode trailer.mp4. Fall back if ffmpeg fails."
+      },
+      {
+        "id": "assemble",
+        "agent": "coordinator",
+        "title": "Assemble the kit",
+        "detail": "Write notes.md, thread.txt, trailer.mp4, and evidence.json. Persist state so a failed run can resume."
+      }
+    ],
+    "risks": [
+      "GitHub API rate limits on unauthenticated compares",
+      "Hallucinated features in the first writer pass",
+      "ffmpeg encoder or font failures on the first render"
+    ]
+  },
+  "research": {
+    "compareRange": "v4.13.11...v4.13.12",
+    "stats": {
+      "commits": 7,
+      "files": 25,
+      "additions": 303,
+      "deletions": 82,
+      "pullRequests": 9
+    },
+    "changeCount": 13,
+    "officialRelease": {
+      "tag": "v4.13.12",
+      "name": "v4.13.12",
+      "body": "## What's Changed\r\n* fix(build): keep internal types private in bundled d.ts and avoid a self-referencing JSX.IntrinsicElements in https://github.com/honojs/hono/pull/5485\r\n* test(build): type-check the bundled declarations from a consumer project in https://github.com/honojs/hono/pull/5486\r\n* fix(etag): correctly match mixed-case header name in retainedHeader option in https://github.com/honojs/hono/pull/5475\r\n* fix(jsx): add px to numeric gridGap, gridRowGap and gridColumnGap in https://github.com/honojs/hono/pull/5487\r\n* fix(combine): return a Response from a short-circuiting middleware in some() in https://github.com/honojs/hono/pull/5391\r\n* chore(deps): upgrade vite-plus to 1.0.0 in https://github.com/honojs/hono/pull/5464\r\n\r\n**Full Changelog**: https://github.com/honojs/hono/compare/v4.13.11...v4.13.12",
+      "url": "https://github.com/honojs/hono/releases/tag/v4.13.12",
+      "publishedAt": "2026-09-30T09:43:10Z"
+    }
+  },
+  "draft": {
+    "attempt": 1,
+    "provider": "heuristic",
+    "model": "github-grounded-templates"
+  },
+  "verification": {
+    "passed": true,
+    "claims": [
+      {
+        "text": "fix(build): keep internal types private in bundled d.ts and avoid a self-referencing JSX.IntrinsicElements (#5485)",
+        "status": "supported",
+        "evidence": [
+          "PR #5485"
+        ],
+        "reason": "Cites a merged pull request from the range."
+      },
+      {
+        "text": "test(build): type-check the bundled declarations from a consumer project (#5486)",
+        "status": "supported",
+        "evidence": [
+          "PR #5486"
+        ],
+        "reason": "Cites a merged pull request from the range."
+      },
+      {
+        "text": "fix(etag): correctly match mixed-case header name in retainedHeader option (#5475)",
+        "status": "supported",
+        "evidence": [
+          "PR #5475"
+        ],
+        "reason": "Cites a merged pull request from the range."
+      },
+      {
+        "text": "fix(jsx): add px to numeric gridGap, gridRowGap and gridColumnGap (#5487)",
+        "status": "supported",
+        "evidence": [
+          "PR #5487"
+        ],
+        "reason": "Cites a merged pull request from the range."
+      },
+      {
+        "text": "fix(build): keep internal types private in bundled d.ts and avoid a self-referencing JSX.IntrinsicElements (#5485)",
+        "status": "supported",
+        "evidence": [
+          "PR #5485"
+        ],
+        "reason": "Cites a merged pull request from the range."
+      },
+      {
+        "text": "fix(etag): correctly match mixed-case header name in retainedHeader option (#5475)",
+        "status": "supported",
+        "evidence": [
+          "PR #5475"
+        ],
+        "reason": "Cites a merged pull request from the range."
+      },
+      {
+        "text": "fix(jsx): add px to numeric gridGap, gridRowGap and gridColumnGap (#5487)",
+        "status": "supported",
+        "evidence": [
+          "PR #5487"
+        ],
+        "reason": "Cites a merged pull request from the range."
+      },
+      {
+        "text": "fix(combine): return a Response from a short-circuiting middleware in some() (#5391)",
+        "status": "supported",
+        "evidence": [
+          "PR #5391"
+        ],
+        "reason": "Cites a merged pull request from the range."
+      },
+      {
+        "text": "test(build): type-check the bundled declarations from a consumer project (#5486)",
+        "status": "supported",
+        "evidence": [
+          "PR #5486"
+        ],
+        "reason": "Cites a merged pull request from the range."
+      },
+      {
+        "text": "chore(deps): upgrade vite-plus to 1.0.0 (#5464)",
+        "status": "supported",
+        "evidence": [
+          "PR #5464"
+        ],
+        "reason": "Cites a merged pull request from the range."
+      },
+      {
+        "text": "4.13.12 (6abd35b)",
+        "status": "supported",
+        "evidence": [
+          "commit 6abd35b"
+        ],
+        "reason": "Cites a commit from the compare range."
+      },
+      {
+        "text": "fix(build): keep internal types private in bundled d.ts and avoid a self-referencing JSX.IntrinsicElements (#5485)",
+        "status": "supported",
+        "evidence": [
+          "PR #5485"
+        ],
+        "reason": "Cites a merged pull request from the range."
+      },
+      {
+        "text": "test(build): type-check the bundled declarations from a consumer project (#5486)",
+        "status": "supported",
+        "evidence": [
+          "PR #5486"
+        ],
+        "reason": "Cites a merged pull request from the range."
+      },
+      {
+        "text": "fix(etag): correctly match mixed-case header name in retainedHeader option (#5475)",
+        "status": "supported",
+        "evidence": [
+          "PR #5475"
+        ],
+        "reason": "Cites a merged pull request from the range."
+      }
+    ],
+    "rejectedFeatures": [],
+    "feedback": "All claims are supported by commits, PRs, files, or official release notes.",
+    "attempt": 1
+  },
+  "media": {
+    "fallbackUsed": false,
+    "renderAttempts": 1,
+    "storyboard": [
+      {
+        "index": 0,
+        "title": "hono v4.13.12",
+        "body": "honojs/hono · v4.13.11...v4.13.12",
+        "durationMs": 2800
+      },
+      {
+        "index": 1,
+        "title": "What shipped",
+        "body": "7 commits · 25 files · +303/-82",
+        "durationMs": 3200
+      },
+      {
+        "index": 2,
+        "title": "Highlight 1",
+        "body": "fix(build): keep internal types private in bundled d.ts and avoid a self-referencing JSX.IntrinsicElements (#5485)",
+        "durationMs": 3200
+      },
+      {
+        "index": 3,
+        "title": "Highlight 2",
+        "body": "test(build): type-check the bundled declarations from a consumer project (#5486)",
+        "durationMs": 3200
+      },
+      {
+        "index": 4,
+        "title": "Highlight 3",
+        "body": "fix(etag): correctly match mixed-case header name in retainedHeader option (#5475)",
+        "durationMs": 3200
+      },
+      {
+        "index": 5,
+        "title": "Verified",
+        "body": "14 grounded claims · 0 rejected",
+        "durationMs": 2800
+      },
+      {
+        "index": 6,
+        "title": "ReleaseCrew",
+        "body": "Planner · researcher · writer · verifier · media",
+        "durationMs": 2600
+      }
+    ]
+  },
+  "failures": [],
+  "usage": {
+    "promptTokens": 0,
+    "completionTokens": 0,
+    "totalTokens": 0
+  },
+  "trace": {
+    "spans": 15,
+    "errors": 0,
+    "retries": 0,
+    "durationMs": 6266,
+    "usage": {
+      "promptTokens": 339,
+      "completionTokens": 170,
+      "totalTokens": 509
+    }
+  },
+  "spans": [
+    {
+      "id": "span_2",
+      "parentId": "span_1",
+      "kind": "AGENT",
+      "name": "planner",
+      "startedAt": "2026-10-11T01:33:19.013Z",
+      "status": "ok",
+      "attributes": {},
+      "endedAt": "2026-10-11T01:33:19.020Z",
+      "durationMs": 7
+    },
+    {
+      "id": "span_5",
+      "parentId": "span_4",
+      "kind": "TOOL",
+      "name": "github_repos_honojs_hono_releases_tags_v4.13.12.attempt_1",
+      "startedAt": "2026-10-11T01:33:19.021Z",
+      "status": "ok",
+      "attributes": {
+        "attempt": 1,
+        "maxAttempts": 4
+      },
+      "endedAt": "2026-10-11T01:33:19.320Z",
+      "durationMs": 299
+    },
+    {
+      "id": "span_4",
+      "parentId": "span_3",
+      "kind": "TOOL",
+      "name": "github /repos/honojs/hono/releases/tags/v4.13.12",
+      "startedAt": "2026-10-11T01:33:19.021Z",
+      "status": "ok",
+      "attributes": {},
+      "endedAt": "2026-10-11T01:33:19.321Z",
+      "durationMs": 300
+    },
+    {
+      "id": "span_7",
+      "parentId": "span_6",
+      "kind": "TOOL",
+      "name": "github_repos_honojs_hono_compare_v4.13.11...v4.13.12.attempt_1",
+      "startedAt": "2026-10-11T01:33:19.321Z",
+      "status": "ok",
+      "attributes": {
+        "attempt": 1,
+        "maxAttempts": 4
+      },
+      "endedAt": "2026-10-11T01:33:19.680Z",
+      "durationMs": 359
+    },
+    {
+      "id": "span_6",
+      "parentId": "span_3",
+      "kind": "TOOL",
+      "name": "github /repos/honojs/hono/compare/v4.13.11...v4.13.12",
+      "startedAt": "2026-10-11T01:33:19.321Z",
+      "status": "ok",
+      "attributes": {},
+      "endedAt": "2026-10-11T01:33:19.684Z",
+      "durationMs": 363
+    },
+    {
+      "id": "span_10",
+      "parentId": "span_9",
+      "kind": "TOOL",
+      "name": "github_search_issues.attempt_1",
+      "startedAt": "2026-10-11T01:33:19.685Z",
+      "status": "ok",
+      "attributes": {
+        "attempt": 1,
+        "maxAttempts": 4
+      },
+      "endedAt": "2026-10-11T01:33:19.881Z",
+      "durationMs": 196
+    },
+    {
+      "id": "span_9",
+      "parentId": "span_8",
+      "kind": "TOOL",
+      "name": "github /search/issues",
+      "startedAt": "2026-10-11T01:33:19.685Z",
+      "status": "ok",
+      "attributes": {},
+      "endedAt": "2026-10-11T01:33:19.882Z",
+      "durationMs": 197
+    },
+    {
+      "id": "span_8",
+      "parentId": "span_3",
+      "kind": "TOOL",
+      "name": "github.searchPulls",
+      "startedAt": "2026-10-11T01:33:19.684Z",
+      "status": "ok",
+      "attributes": {},
+      "endedAt": "2026-10-11T01:33:19.882Z",
+      "durationMs": 198
+    },
+    {
+      "id": "span_3",
+      "parentId": "span_1",
+      "kind": "AGENT",
+      "name": "researcher",
+      "startedAt": "2026-10-11T01:33:19.020Z",
+      "status": "ok",
+      "attributes": {},
+      "endedAt": "2026-10-11T01:33:19.885Z",
+      "durationMs": 865
+    },
+    {
+      "id": "span_11",
+      "parentId": "span_1",
+      "kind": "AGENT",
+      "name": "writer",
+      "startedAt": "2026-10-11T01:33:19.885Z",
+      "status": "ok",
+      "attributes": {},
+      "endedAt": "2026-10-11T01:33:19.887Z",
+      "durationMs": 2
+    },
+    {
+      "id": "span_13",
+      "parentId": "span_12",
+      "kind": "GUARDRAIL",
+      "name": "claim-grounding",
+      "startedAt": "2026-10-11T01:33:19.887Z",
+      "status": "ok",
+      "attributes": {},
+      "endedAt": "2026-10-11T01:33:19.889Z",
+      "durationMs": 2
+    },
+    {
+      "id": "span_12",
+      "parentId": "span_1",
+      "kind": "AGENT",
+      "name": "verifier",
+      "startedAt": "2026-10-11T01:33:19.887Z",
+      "status": "ok",
+      "attributes": {},
+      "endedAt": "2026-10-11T01:33:19.889Z",
+      "durationMs": 2
+    },
+    {
+      "id": "span_16",
+      "parentId": "span_15",
+      "kind": "TOOL",
+      "name": "ffmpeg.encode",
+      "startedAt": "2026-10-11T01:33:19.934Z",
+      "status": "ok",
+      "attributes": {},
+      "endedAt": "2026-10-11T01:33:21.078Z",
+      "durationMs": 1144
+    },
+    {
+      "id": "span_15",
+      "parentId": "span_14",
+      "kind": "TOOL",
+      "name": "ffmpeg.render.attempt_1",
+      "startedAt": "2026-10-11T01:33:19.934Z",
+      "status": "ok",
+      "attributes": {
+        "attempt": 1,
+        "maxAttempts": 3
+      },
+      "endedAt": "2026-10-11T01:33:21.078Z",
+      "durationMs": 1144
+    },
+    {
+      "id": "span_14",
+      "parentId": "span_1",
+      "kind": "AGENT",
+      "name": "media",
+      "startedAt": "2026-10-11T01:33:19.890Z",
+      "status": "ok",
+      "attributes": {},
+      "endedAt": "2026-10-11T01:33:21.078Z",
+      "durationMs": 1188
+    }
+  ]
+}

@@ -48,7 +48,10 @@ export function summarizeTrace(): {
   return {
     spans: records.length,
     errors: records.filter((span) => span.status === "error").length,
-    retries: records.filter((span) => span.status === "retry" || span.name.includes("attempt_")).length,
+    retries: records.filter((span) => {
+      const attempt = span.name.match(/attempt_(\d+)/);
+      return span.status === "retry" || (attempt !== null && Number(attempt[1]) > 1);
+    }).length,
     durationMs,
     usage: currentUsage(),
   };

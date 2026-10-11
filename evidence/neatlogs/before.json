@@ -1,0 +1,15 @@
+{
+  "label": "before",
+  "spans": 21,
+  "errors": 1,
+  "retries": 3,
+  "durationMs": 7577,
+  "usage": {
+    "promptTokens": 546,
+    "completionTokens": 273,
+    "totalTokens": 819
+  },
+  "writerAttempts": 2,
+  "rejectedClaims": 1,
+  "recoveredFailures": ["rate_limit", "bad_model_output", "render_failure"]
+}

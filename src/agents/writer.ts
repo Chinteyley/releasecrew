@@ -74,11 +74,8 @@ function heuristicDraft(
   research: ResearchBundle,
   feedback?: string,
 ): { notes: ReleaseNotes; thread: LaunchThread } {
-  const allowed = research.changes.filter((change) => change.title.trim().length > 0);
-  const filtered = feedback
-    ? allowed.filter((change) => !feedback.toLowerCase().includes(change.title.toLowerCase()) || /keep|supported/.test(feedback))
-    : allowed;
-  const source = filtered.length > 0 ? filtered : allowed;
+  const allowed = dedupeChanges(research.changes.filter((change) => change.title.trim().length > 0));
+  const source = allowed;
   const grouped = groupByKind(source);
   const highlights = source.slice(0, 4).map((change) => formatBullet(change));
   const sections = [...grouped.entries()]
@@ -139,6 +136,27 @@ function toNotes(
     breaking: draft.breaking,
     markdown: lines.filter((line, index, all) => !(line === "" && all[index - 1] === "")).join("\n"),
   };
+}
+
+function dedupeChanges(changes: ChangeItem[]): ChangeItem[] {
+  const seenPr = new Set<number>();
+  const seenNorm = new Set<string>();
+  const unique: ChangeItem[] = [];
+  for (const change of changes) {
+    const norm = change.title
+      .toLowerCase()
+      .replace(/\(#[0-9]+\)/g, "")
+      .replace(/\([a-f0-9]{7,}\)/g, "")
+      .replace(/^(feat|fix|perf|docs|chore|refactor|ci|build|test)(\(.+\))?(!)?:\s*/i, "")
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim();
+    if (change.prNumber && seenPr.has(change.prNumber)) continue;
+    if (norm && [...seenNorm].some((item) => item.includes(norm) || norm.includes(item))) continue;
+    if (change.prNumber) seenPr.add(change.prNumber);
+    if (norm) seenNorm.add(norm);
+    unique.push(change);
+  }
+  return unique;
 }
 
 function groupByKind(changes: ChangeItem[]): Map<ChangeKind, ChangeItem[]> {

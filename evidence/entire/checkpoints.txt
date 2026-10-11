@@ -1,0 +1,25 @@
+Entire CLI 0.11.4 · this repository · slops/releasecrew-neathack-0708
+
+entire checkpoint list
+  branch       slops/releasecrew-neathack-0708
+  checkpoints  0
+
+Why zero: Entire checkpoints are created from a coding-agent session
+transcript (Cursor hooks → sessionStart / commit). This cloud-agent
+environment has a Cursor session id but no on-disk transcript Entire
+can attach (`entire session attach` → transcript not found).
+
+What judges can still check (and what we actually used while building):
+
+- entire-graph output in this folder (search, impact, snapshot, doctor)
+- .entire/settings.json — git-refs checkpoint backend enabled
+- .cursor/hooks.json — Entire Cursor hooks installed
+- AGENTS.md / .entire/graph-agent.md — init-agents guide
+- git hooks under the workspace hooksPath calling `entire hooks git …`
+
+On a desktop Cursor session the owner can:
+
+    entire enable --agent cursor --yes
+    entire session attach <cursor-session-id> --agent cursor
+    entire checkpoint list
+    entire checkpoint explain <id>
