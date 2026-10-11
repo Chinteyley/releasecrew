@@ -8,19 +8,19 @@ honojs/hono · v4.13.11...v4.13.12
 
 ## 3. Highlight 1
 
-keep internal types private in bundled d.ts and avoid a self-referencing JSX.IntrinsicElements (#5485) (be1f749)
+Fixed bundled type declarations to keep internal types private and avoid self-referencing JSX.IntrinsicElements (#5485)
 
 ## 4. Highlight 2
 
-type-check the bundled declarations from a consumer project (#5486) (c437d75)
+Fixed etag middleware to correctly match mixed-case header names in retainedHeader option (#5475)
 
 ## 5. Highlight 3
 
-correctly match mixed-case header name in retainedHeader option (#5475) (c3053cc)
+Fixed JSX to add px units to numeric gridGap, gridRowGap and gridColumnGap properties (#5487)
 
 ## 6. Verified
 
-14 grounded claims · 0 rejected
+12 grounded claims · 0 rejected
 
 ## 7. ReleaseCrew
 

@@ -1,6 +1,6 @@
 # Example kit: honojs/hono v4.13.12
 
-Produced during neatHack by ReleaseCrew against the public compare [`v4.13.11...v4.13.12`](https://github.com/honojs/hono/compare/v4.13.11...v4.13.12).
+Produced during neatHack by ReleaseCrew with `claude-haiku` (neatHack LiteLLM) as planner + writer, traced in neatlogs, against the public compare [`v4.13.11...v4.13.12`](https://github.com/honojs/hono/compare/v4.13.11...v4.13.12).
 
 | File | What |
 | --- | --- |
@@ -14,5 +14,7 @@ Produced during neatHack by ReleaseCrew against the public compare [`v4.13.11...
 Re-run:
 
 ```bash
-npx tsx src/cli.ts --repo honojs/hono --tag v4.13.12 --from v4.13.11 --out examples/hono-v4.13.12
+npx tsx src/cli.ts --repo honojs/hono --tag v4.13.12 --from v4.13.11 --out examples/hono-v4.13.12 --compare-baseline --run-id hono-llm
 ```
+
+Run numbers and neatlogs trace links: [`evidence/neatlogs/comparison.md`](../../evidence/neatlogs/comparison.md).

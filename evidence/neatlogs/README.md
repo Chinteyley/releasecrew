@@ -9,4 +9,4 @@ Instrumentation lives in `src/telemetry/neatlogs.ts` and `src/telemetry/recorder
 | `comparison.md` | Side-by-side numbers judges can check |
 | `before.trace.jsonl` / `after.trace.jsonl` | Full local span trees (copied from `.releasecrew/runs/`) |
 
-Dashboard URLs go in `comparison.md` once `NEATLOGS_API_KEY` is set and the two runs are re-exported.
+Both runs used `claude-haiku` via the neatHack LiteLLM proxy and were exported to neatlogs. Trace ids and dashboard links are in `comparison.md`.

@@ -1,9 +1,5 @@
-1/ honojs/hono v4.13.12 is out. 7 commits, 25 files, +303/-82.
+1/ v4.13.12 released! 🎉 Fixed type declaration bundling, etag header matching, JSX grid gap units, and combine middleware behavior. https://github.com/honojs/hono/releases/tag/v4.13.12
 
-2/ keep internal types private in bundled d.ts and avoid a self-referencing JSX.IntrinsicElements (#5485) (be1f749)
+2/ Hono v4.13.12: Type safety improvements for bundled declarations and fixes for etag, JSX grid properties, and middleware composition.
 
-3/ type-check the bundled declarations from a consumer project (#5486) (c437d75)
-
-4/ correctly match mixed-case header name in retainedHeader option (#5475) (c3053cc)
-
-5/ Notes, thread, and trailer were assembled by ReleaseCrew from v4.13.11...v4.13.12.
+3/ Check out v4.13.12 of Hono with improved TypeScript declarations, better etag handling, and JSX enhancements.

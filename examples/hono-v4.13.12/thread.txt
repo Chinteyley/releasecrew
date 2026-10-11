@@ -1,9 +1,1 @@
-1/ honojs/hono v4.13.12 is out. 7 commits, 25 files, +303/-82.
-
-2/ fix(build): keep internal types private in bundled d.ts and avoid a self-referencing JSX.IntrinsicElements (#5485)
-
-3/ test(build): type-check the bundled declarations from a consumer project (#5486)
-
-4/ fix(etag): correctly match mixed-case header name in retainedHeader option (#5475)
-
-5/ Notes, thread, and trailer were assembled by ReleaseCrew from v4.13.11...v4.13.12.
+1/ Hono v4.13.12 is out! 🚀 This release includes fixes for bundled type declarations, ETag header matching, JSX grid properties, and middleware combinators. Check it out: https://github.com/honojs/hono/releases/tag/v4.13.12

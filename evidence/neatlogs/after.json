@@ -1,15 +1,18 @@
 {
   "label": "after",
-  "spans": 16,
+  "spans": 17,
   "errors": 0,
   "retries": 0,
-  "durationMs": 5904,
+  "durationMs": 36228,
   "usage": {
-    "promptTokens": 340,
-    "completionTokens": 169,
-    "totalTokens": 509
+    "promptTokens": 3466,
+    "completionTokens": 964,
+    "totalTokens": 4430
   },
-  "writerAttempts": 1,
-  "rejectedClaims": 0,
-  "recoveredFailures": []
+  "llm": {
+    "provider": "litellm",
+    "model": "claude-haiku",
+    "mode": "llm"
+  },
+  "neatlogsTraceId": "e7ffc0315da930b805121b7ed8f0d300"
 }
