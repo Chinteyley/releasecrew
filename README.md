@@ -8,7 +8,17 @@ Built during **neatHack Oct 10–12**.
 npx tsx src/cli.ts --repo honojs/hono --tag v4.13.12 --from v4.13.11 --out examples/hono-v4.13.12
 ```
 
-Example kit: [`examples/hono-v4.13.12`](./examples/hono-v4.13.12) (Hono `v4.13.11...v4.13.12`).
+Example kit: [`examples/hono-v4.13.12`](./examples/hono-v4.13.12) (Hono `v4.13.11...v4.13.12`), written by `claude-haiku` through the neatHack LiteLLM proxy and traced in neatlogs.
+
+| Hono run (real LLM, exported to neatlogs) | Before (`--demo-failures`) | After (clean) |
+| --- | --- | --- |
+| Spans | 23 | 17 |
+| Retries / errors | 3 / 1 | 0 / 0 |
+| Writer attempts | 2 (verifier caught an invented feature) | 1 |
+| Tokens (real usage) | 7,989 | 4,430 (−45%) |
+| Wall time | 20.8s | 17.6s |
+
+Details and trace links: [`evidence/neatlogs/comparison.md`](./evidence/neatlogs/comparison.md).
 
 ## Architecture
 
@@ -29,7 +39,7 @@ flowchart TD
   Writer --> AISDK["AI SDK or heuristic fallback"]
 
   Dev["This repo, while building"] --> Entire["Entire checkpoints<br/>+ entire-graph"]
-  Inputs["docs/business-plan-inputs.md"] --> CFO["cfo.ai model<br/>owner signup"]
+  Inputs["docs/business-plan-inputs.md"] --> CFO["cfo.ai business plan"]
 ```
 
 | Agent | Job |
@@ -79,7 +89,7 @@ None of these block a local kit. The researcher talks to the public GitHub API. 
 | Key | Role |
 | --- | --- |
 | `NEATLOGS_API_KEY` | Export spans to the neatlogs dashboard. Without it: local JSONL only |
-| `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` / `GOOGLE_GENERATIVE_AI_API_KEY` / `LITELLM_API_KEY` / Bedrock | LLM planner + writer via the AI SDK (`wrapAISDK`) |
+| `LITELLM_API_KEY` + `LITELLM_BASE_URL` (neatHack: `https://litellm.vision.aivar.app/v1`, default model `claude-haiku`) / `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` / `GOOGLE_GENERATIVE_AI_API_KEY` / Bedrock | LLM planner + writer via the AI SDK (`wrapAISDK`) |
 | `GITHUB_TOKEN` | Higher GitHub rate limit |
 | cfo.ai | Owner signup (card, then cancel). Not an env var |
 
@@ -105,14 +115,14 @@ I used `entire graph search` to find the durable store and `entire graph impact 
 
 ### cfo.ai — plan the business
 
-Not in the agent loop. [`docs/business-plan-inputs.md`](./docs/business-plan-inputs.md) is paste-ready (pricing, COGS, revenue, runway, scenarios). [`docs/business-plan.md`](./docs/business-plan.md) is the slot for the exported plan after the owner signs up and cancels billing.
+Not in the agent loop. [`docs/business-plan-inputs.md`](./docs/business-plan-inputs.md) is paste-ready (pricing, COGS, revenue, runway, scenarios). [`docs/business-plan.md`](./docs/business-plan.md) summarizes the plan (Indie $29 / Team $149 / Launch $499, $2.7k → $36.9k MRR over 18 months, 92–93% gross margin, cash never negative and ending at ~$178k, LTV:CAC ~9–10x). The [public model](https://cfo.ai/s/ZbM2xk1moP4DNr2f), PDF, xlsx exports and screenshots are in [`evidence/cfo-ai/`](./evidence/cfo-ai).
 
 ## Evidence checklist (judging)
 
 | Criterion | Weight | Checkable evidence in this repo |
 | --- | --- | --- |
 | The agent handles a substantial task end to end | 30% | Planner → research → write → verify → media → kit on a real public release ([`examples/hono-v4.13.12`](./examples/hono-v4.13.12)). State in `.releasecrew/runs/`. Resume via `--resume` |
-| Use of neatlogs + Entire + cfo.ai | 25% | neatlogs instrumentation + before/after traces. Entire graph + checkpoints. cfo.ai input sheet + export placeholder |
+| Use of neatlogs + Entire + cfo.ai | 25% | neatlogs instrumentation + before/after traces. Entire graph + checkpoints. cfo.ai plan ([public model](https://cfo.ai/s/ZbM2xk1moP4DNr2f), PDF + xlsx in `evidence/cfo-ai/`) |
 | Demo video ≤ 3 min | 20% | Script: [`docs/demo-script.md`](./docs/demo-script.md). Covers architecture, implementation, runtime, reasoning, result for each partner |
 | Building in public | 15% | Drafts for the owner: [`docs/build-in-public.md`](./docs/build-in-public.md). Public commits during Oct 10–12 |
 | Usefulness and originality | 10% | Verified launch kits, not “an LLM summarized the release body” |
@@ -122,9 +132,9 @@ Judges asked for specific artifacts:
 | Ask | Where |
 | --- | --- |
 | Before / after neatlogs traces with compared numbers | [`evidence/neatlogs/comparison.md`](./evidence/neatlogs/comparison.md) |
-| Trace links or screenshots | Local JSONL + dashboard links once the owner adds `NEATLOGS_API_KEY` |
+| Trace links or screenshots | neatlogs trace ids + dashboard links in [`comparison.md`](./evidence/neatlogs/comparison.md), plus local JSONL |
 | Entire checkpoints or entire-graph output | [`evidence/entire/`](./evidence/entire) |
-| A cfo.ai business plan | Inputs now; export in `docs/business-plan.md` after signup |
+| A cfo.ai business plan | [`docs/business-plan.md`](./docs/business-plan.md) · [public cfo.ai model](https://cfo.ai/s/ZbM2xk1moP4DNr2f) · exports in [`evidence/cfo-ai/`](./evidence/cfo-ai) |
 | A run where an action failed and the agent recovered | `examples/hono-v4.13.12/evidence.json` → `failures[]` with `recovered: true` |
 | Public commits during the event | This repository |
 

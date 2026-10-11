@@ -1,15 +1,27 @@
-# Business plan (cfo.ai export)
+# Business plan (cfo.ai)
 
-**Status:** placeholder. The owner must sign up at [cfo.ai](https://cfo.ai) (card required; cancel immediately in Settings → Billing). neatHack then credits the account.
+Built in cfo.ai with Ari from [`business-plan-inputs.md`](./business-plan-inputs.md) during neatHack (October 2026).
 
-1. Open [`docs/business-plan-inputs.md`](./business-plan-inputs.md).
-2. Paste the prompt and tables into Ari.
-3. Export the plan (pricing, costs, revenue, runway, scenarios).
-4. Replace this file with the export. Keep the date and a link to the cfo.ai model.
+**Public model:** https://cfo.ai/s/ZbM2xk1moP4DNr2f
 
-Until that export exists, judges can still read the **inputs** we will paste: Indie / Team / Launch pricing, $0.24 COGS per kit, starting cash $12,000, and the four scenarios.
+| Area | Plan |
+| --- | --- |
+| Pricing | Indie **$29**/mo · Team **$149**/mo · Launch **$499**/mo |
+| Revenue | **$2.7k/mo** at start, growing to **$36.9k/mo** over 18 months |
+| Gross margin | **92–93%** (LLM + render COGS per kit is small next to the price) |
+| Cash | Never goes negative. Ends the 18 months at **~$178k** |
+| Unit economics | LTV:CAC around **9–10x** |
 
-```
-cfo.ai model URL:
-exported at:
-```
+## Exports
+
+All in [`evidence/cfo-ai/`](../evidence/cfo-ai):
+
+| File | What |
+| --- | --- |
+| `ReleaseCrew_Business_Plan.pdf` | Full written plan |
+| `RC Pricing & drivers.xlsx` | Tiers and model drivers |
+| `RC Customers & revenue.xlsx` | Customer and MRR build |
+| `RC P&L, cash & runway.xlsx` | P&L, cash balance, runway |
+| `RC Unit economics.xlsx` | CAC, LTV, payback |
+| `screenshot-*.png` | Business plan, pricing, revenue, costs, runway, scenarios, unit economics views |
+| `ari-prompt.txt` | The prompt given to Ari |
