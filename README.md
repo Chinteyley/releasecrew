@@ -4,6 +4,8 @@ Give it a GitHub repo and a release tag. A small crew of agents ships the launch
 
 Built during **neatHack Oct 10–12**.
 
+Demo video: `Demo (2:32): <X post link, added after submission>`
+
 ```bash
 npx tsx src/cli.ts --repo honojs/hono --tag v4.13.12 --from v4.13.11 --out examples/hono-v4.13.12
 ```
@@ -18,7 +20,7 @@ Example kit: [`examples/hono-v4.13.12`](./examples/hono-v4.13.12) (Hono `v4.13.1
 | Tokens (real usage) | 7,989 | 4,430 (−45%) |
 | Wall time | 20.8s | 17.6s |
 
-Details and trace links: [`evidence/neatlogs/comparison.md`](./evidence/neatlogs/comparison.md).
+Details and screenshots: [`evidence/neatlogs/comparison.md`](./evidence/neatlogs/comparison.md). Dashboard `/traces/<id>` URLs are stale; the screenshots are the evidence.
 
 ## Architecture
 
@@ -91,7 +93,7 @@ None of these block a local kit. The researcher talks to the public GitHub API. 
 | `NEATLOGS_API_KEY` | Export spans to the neatlogs dashboard. Without it: local JSONL only |
 | `LITELLM_API_KEY` + `LITELLM_BASE_URL` (neatHack: `https://litellm.vision.aivar.app/v1`, default model `claude-haiku`) / `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` / `GOOGLE_GENERATIVE_AI_API_KEY` / Bedrock | LLM planner + writer via the AI SDK (`wrapAISDK`) |
 | `GITHUB_TOKEN` | Higher GitHub rate limit |
-| cfo.ai | Owner signup (card, then cancel). Not an env var |
+| cfo.ai | cfo.ai account signup, not an env var |
 
 See [`.env.example`](./.env.example) and [`docs/neatlogs.md`](./docs/neatlogs.md).
 
@@ -102,6 +104,16 @@ See [`.env.example`](./.env.example) and [`docs/neatlogs.md`](./docs/neatlogs.md
 `src/telemetry/neatlogs.ts` calls `init()`, `span()`, `trace()`, `log()`, `flush()`, `shutdown()`. Agent steps, GitHub/ffmpeg tools, verifier guardrails, LLM calls, and retries each get a span. `neatlogs/ai` wraps the AI SDK when a model key exists.
 
 Without `NEATLOGS_API_KEY`, the same tree is written to `.releasecrew/runs/<id>/trace.jsonl` and copied under `evidence/neatlogs/` so judges can still compare numbers.
+
+Live dashboard `/traces/<id>` URLs for the before/after runs now show “trace not found” or “processing failed”. **Screenshots are the evidence:**
+
+![neatlogs session list](./evidence/neatlogs/screenshots/session-list-summary.png)
+
+![neatlogs session with the Hono turn expanded](./evidence/neatlogs/screenshots/session-expanded-turn.png)
+
+![neatlogs session summary: recovered failures and token usage](./evidence/neatlogs/screenshots/session-summary-failures-tokens-tooltip.png)
+
+Trace ids (plain text): before `3a283db3709a7bb09b0051a3d88e3e66`, after `e7ffc0315da930b805121b7ed8f0d300`.
 
 ### Entire — repository context while building
 
@@ -123,8 +135,8 @@ Not in the agent loop. [`docs/business-plan-inputs.md`](./docs/business-plan-inp
 | --- | --- | --- |
 | The agent handles a substantial task end to end | 30% | Planner → research → write → verify → media → kit on a real public release ([`examples/hono-v4.13.12`](./examples/hono-v4.13.12)). State in `.releasecrew/runs/`. Resume via `--resume` |
 | Use of neatlogs + Entire + cfo.ai | 25% | neatlogs instrumentation + before/after traces. Entire graph + checkpoints. cfo.ai plan ([public model](https://cfo.ai/s/ZbM2xk1moP4DNr2f), PDF + xlsx in `evidence/cfo-ai/`) |
-| Demo video ≤ 3 min | 20% | Script: [`docs/demo-script.md`](./docs/demo-script.md). Covers architecture, implementation, runtime, reasoning, result for each partner |
-| Building in public | 15% | Drafts for the owner: [`docs/build-in-public.md`](./docs/build-in-public.md). Public commits during Oct 10–12 |
+| Demo video ≤ 3 min | 20% | Script: [`docs/demo-script.md`](./docs/demo-script.md). Covers architecture, implementation, runtime, reasoning, result for each partner. Demo (2:32): `<X post link, added after submission>` |
+| Building in public | 15% | Build-in-public drafts: [`docs/build-in-public.md`](./docs/build-in-public.md). Public commits during Oct 10–12 |
 | Usefulness and originality | 10% | Verified launch kits, not “an LLM summarized the release body” |
 
 Judges asked for specific artifacts:
@@ -132,7 +144,7 @@ Judges asked for specific artifacts:
 | Ask | Where |
 | --- | --- |
 | Before / after neatlogs traces with compared numbers | [`evidence/neatlogs/comparison.md`](./evidence/neatlogs/comparison.md) |
-| Trace links or screenshots | neatlogs trace ids + dashboard links in [`comparison.md`](./evidence/neatlogs/comparison.md), plus local JSONL |
+| Trace links or screenshots | Screenshots are the evidence: [`evidence/neatlogs/screenshots/`](./evidence/neatlogs/screenshots/) (also in [`comparison.md`](./evidence/neatlogs/comparison.md)). Trace ids as plain text; local JSONL |
 | Entire checkpoints or entire-graph output | [`evidence/entire/`](./evidence/entire) |
 | A cfo.ai business plan | [`docs/business-plan.md`](./docs/business-plan.md) · [public cfo.ai model](https://cfo.ai/s/ZbM2xk1moP4DNr2f) · exports in [`evidence/cfo-ai/`](./evidence/cfo-ai) |
 | A run where an action failed and the agent recovered | `examples/hono-v4.13.12/evidence.json` → `failures[]` with `recovered: true` |
