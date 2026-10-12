@@ -4,7 +4,7 @@ Give it a GitHub repo and a release tag. A small crew of agents ships the launch
 
 Built during **neatHack Oct 10–12**.
 
-Demo video: `Demo (2:32): <X post link, added after submission>`
+Demo video: [Demo (2:32) on X](https://x.com/kimteyley/status/2109645411485130785)
 
 ```bash
 npx tsx src/cli.ts --repo honojs/hono --tag v4.13.12 --from v4.13.11 --out examples/hono-v4.13.12
@@ -135,7 +135,7 @@ Not in the agent loop. [`docs/business-plan-inputs.md`](./docs/business-plan-inp
 | --- | --- | --- |
 | The agent handles a substantial task end to end | 30% | Planner → research → write → verify → media → kit on a real public release ([`examples/hono-v4.13.12`](./examples/hono-v4.13.12)). State in `.releasecrew/runs/`. Resume via `--resume` |
 | Use of neatlogs + Entire + cfo.ai | 25% | neatlogs instrumentation + before/after traces. Entire graph + checkpoints. cfo.ai plan ([public model](https://cfo.ai/s/ZbM2xk1moP4DNr2f), PDF + xlsx in `evidence/cfo-ai/`) |
-| Demo video ≤ 3 min | 20% | Script: [`docs/demo-script.md`](./docs/demo-script.md). Covers architecture, implementation, runtime, reasoning, result for each partner. Demo (2:32): `<X post link, added after submission>` |
+| Demo video ≤ 3 min | 20% | Script: [`docs/demo-script.md`](./docs/demo-script.md). Covers architecture, implementation, runtime, reasoning, result for each partner. [Demo (2:32) on X](https://x.com/kimteyley/status/2109645411485130785) |
 | Building in public | 15% | Build-in-public drafts: [`docs/build-in-public.md`](./docs/build-in-public.md). Public commits during Oct 10–12 |
 | Usefulness and originality | 10% | Verified launch kits, not “an LLM summarized the release body” |
 
