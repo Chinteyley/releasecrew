@@ -12,8 +12,7 @@ npx tsx src/cli.ts --repo honojs/hono --tag v4.13.12 --from v4.13.11 \
 
 | Metric | Before (sloppy) | After (clean) | Delta |
 | --- | --- | --- | --- |
-| neatlogs trace_id | `3a283db3709a7bb09b0051a3d88e3e66` | `e7ffc0315da930b805121b7ed8f0d300` | — |
-| neatlogs dashboard | [open trace](https://app.neatlogs.com/traces/3a283db3709a7bb09b0051a3d88e3e66) | [open trace](https://app.neatlogs.com/traces/e7ffc0315da930b805121b7ed8f0d300) | — |
+| neatlogs trace_id (plain text) | `3a283db3709a7bb09b0051a3d88e3e66` | `e7ffc0315da930b805121b7ed8f0d300` | — |
 | Local trace | [`before.trace.jsonl`](./before.trace.jsonl) | [`after.trace.jsonl`](./after.trace.jsonl) | — |
 | Model | litellm / claude-haiku | litellm / claude-haiku | — |
 | Spans | 23 | 17 | −6 |
@@ -30,8 +29,16 @@ npx tsx src/cli.ts --repo honojs/hono --tag v4.13.12 --from v4.13.11 \
 
 Token counts are the provider-reported usage from the AI SDK, not estimates. The `durationMs` in `before.json` / `after.json` is a sum over nested spans, so the table uses the root `WORKFLOW` span for wall time.
 
-The trace ids are the W3C ids of the root span, captured in the run with `injectTraceContext`. Dashboard links follow the documented `app.neatlogs.com/traces/<id>` pattern. Opening them needs the project login.
+The trace ids are the W3C ids of the root span, captured in the run with `injectTraceContext`. Live dashboard `/traces/<id>` URLs for these runs now show “trace not found” or “processing failed”, so they are not the primary evidence. **The screenshots below are the evidence.**
 
 What changed: the verifier is a `GUARDRAIL` span. Before proves it fires and the writer retries, which costs a whole extra LLM draft (~3.5k tokens). After proves a grounded writer never trips it. GitHub and ffmpeg retries are child spans named `*.attempt_N`.
+
+### Session screenshots
+
+![neatlogs session list](./screenshots/session-list-summary.png)
+
+![neatlogs session with the Hono turn expanded](./screenshots/session-expanded-turn.png)
+
+![neatlogs session summary: recovered failures and token usage](./screenshots/session-summary-failures-tokens-tooltip.png)
 
 Kits: [`examples/hono-v4.13.12/before`](../../examples/hono-v4.13.12/before) vs [`examples/hono-v4.13.12`](../../examples/hono-v4.13.12).
